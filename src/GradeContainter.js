@@ -1,11 +1,20 @@
 import GradeList from './GradeList.js'
 import {useState} from 'react'
 const GradeContainer = () => {
-    const [grades, setGrades] = useState(["Nathan", "Patty"])
-    
+    const [ids, setId] = useState([0, 1, 2, 3])
+
+    const addBox = () => {
+        setId([... ids, ids.length])
+    }
+
+    const removeBox = (idParam) => {
+        setId(ids.filter((id) => {
+            return idParam !== id
+        }))
+    }
     return (
-        <div className="grid-cols-1 w-1/2 border-solid border-2">
-            <GradeList grades={grades} />
+        <div className="border-solid border-2 border-green-700 rounded-md m-4">
+            <GradeList ids={ids} addBox={addBox} removeBox={removeBox}/>
         </div>
     )
 }

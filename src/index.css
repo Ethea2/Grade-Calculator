@@ -5,6 +5,8 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #E5D9B6;
+  /* cedbb8 */
 }
 
 code {
@@ -13,19 +15,31 @@ code {
 }
 
 .palette1 {
-    background: #FAF1E6;
+    background: #E5D9B6;
 }
 
 .palette2 {
-    background: #FDFAF6;
+    background: #A4BE7B;
 }
 
 .palette3 {
-    background: #E4EFE7;
+    background: #5F8D4E;
     /* text-emerald-100 */
 }
 
 .palette4 {
-    background: #064420;
+    background: #285430;
     /* text-emerald-900 */
+}
+
+.palette5 {
+    background: #7bbb87
+}
+
+.palette6 {
+    background: #dcd8d8
+}
+
+.label-tag {
+    @apply flex place-content-center w-full text-xl text-green-900 mt-2 font-semibold
 }
