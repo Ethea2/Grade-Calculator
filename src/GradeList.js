@@ -1,6 +1,66 @@
-import { useState } from "react"
+import { cleanup } from "@testing-library/react"
+import { useEffect, useState } from "react"
 
-const GradeList = ({ ids, addBox, removeBox }) => {
+const GradeList = () => {
+    const [unit, setUnit] = useState([])
+    const [grade, setGrade] = useState([])
+    const [data, setData] = useState([])
+    const [ids, setId] = useState([0, 1, 2, 3])
+
+    const addBox = () => {
+        setId([... ids, ids.length])
+    }
+
+    const removeBox = (idParam) => {
+        setId(ids.filter((id) => {
+            if(idParam !== id) {
+                cleanUpData(idParam)
+            } 
+            return idParam !== id
+        }))
+    }
+
+    const cleanUpData = (id) => {
+        setGrade(grade.filter((item) => item.id !== id))
+        setUnit(unit.filter((item) => item.id !== id))
+    }
+
+    const printData = () => {
+        console.log(grade)
+        console.log(unit)
+    }
+
+    const addGrade = (id, addedGrade) => {
+        if(typeof grade[id] === 'undefined') {
+            setGrade([...grade, {
+                id: id,
+                grade: addedGrade
+            }])
+        } else {
+            setGrade(grade.map((item) => {
+                if(item.id === id) {
+                    item.grade = addedGrade
+                }
+                return item
+            }))
+        }
+    }
+
+    const addUnits = (id, addedUnits) => {
+        if(typeof unit[id] === 'undefined') {
+            setUnit([...unit, {
+                id: id,
+                units: addedUnits
+            }])
+        } else {
+            setUnit(unit.map((item) => {
+                if(item.id === id) {
+                    item.units = addedUnits
+                }
+                return item
+            }))
+        }
+    }
 
     return (
         <div>
@@ -24,13 +84,14 @@ const GradeList = ({ ids, addBox, removeBox }) => {
                         <div className="grid grid-cols-4 justify-self-center justify-center w-full h-16 palette5 rounded-lg shadow-slate-100 self-center shadow-2xl
                         border-solid border-2 border-white">
                             <div className="flex place-content-center">
-                                <input className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-3/4 text-center" />
+                                <input className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-3/4 text-center"/>
                             </div>
                             <div className="flex place-content-center">
-                                <input className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-1/2 text-center" />
+                                <input type="number" min="0" step="1" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-1/2 text-center" onChange={(e) => addUnits(id, e.target.value)}/>
                             </div>
                             <div className="flex place-content-center">
-                                <select id="grades" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 w-1/2 text-center">
+                                <select id="grades" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 w-1/2 text-center" onChange={(e) => addGrade(id, e.target.value)}>
+                                    <option disabled selected value className="hide"></option>
                                     <option value="4.0">4.0</option>
                                     <option value="3.5">3.5</option>
                                     <option value="3.0">3.0</option>
@@ -51,8 +112,11 @@ const GradeList = ({ ids, addBox, removeBox }) => {
                 ))
             }
             <div className="flex place-content-center m-1">
-                <button onClick={addBox} className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-full w-3/4 place-self-center">
+                <button onClick={addBox} className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-full w-3/4 place-self-center m-0.5">
                     Add
+                </button>
+                <button onClick={printData} className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-full w-3/4 place-self-center m-0.5">
+                    Compute
                 </button>
             </div>
         </div>

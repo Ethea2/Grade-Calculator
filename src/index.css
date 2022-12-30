@@ -43,3 +43,7 @@ code {
 .label-tag {
     @apply flex place-content-center w-full text-xl text-green-900 mt-2 font-semibold
 }
+
+.hide {
+    display: none;
+}
