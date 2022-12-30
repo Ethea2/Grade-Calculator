@@ -8,53 +8,63 @@ const GradeList = () => {
     const [ids, setId] = useState([0, 1, 2, 3])
 
     const addBox = () => {
-        setId([... ids, ids.length])
+        setId([...ids, ids.length])
+        setData([...data, {
+            id: ids.length,
+            unit: "",
+            grade: ""
+        }])
     }
 
     const removeBox = (idParam) => {
         setId(ids.filter((id) => {
-            if(idParam !== id) {
+            if (idParam !== id) {
                 cleanUpData(idParam)
-            } 
+            }
             return idParam !== id
         }))
+        setId(ids.map((element) => element - 1)) //bug fix: the appending and removing of boxes logic is bad
     }
 
+    useEffect(() => {
+        onStart()
+    }, [])
+
+
+    const onStart = () => {
+        const tempArray = []
+        ids.forEach((element) => {
+            tempArray.push({
+                id: element,
+                unit: "",
+                grade: ""
+            })
+        })
+        setData(tempArray)
+    }
     const cleanUpData = (id) => {
-        setGrade(grade.filter((item) => item.id !== id))
-        setUnit(unit.filter((item) => item.id !== id))
+        setData(data.filter((item) => item.id !== id))
     }
 
     const printData = () => {
-        console.log(grade)
-        console.log(unit)
+        // console.log(grade)
+        // console.log(unit)
+        console.log(data)
     }
 
     const addGrade = (id, addedGrade) => {
-        if(typeof grade[id] === 'undefined') {
-            setGrade([...grade, {
-                id: id,
-                grade: addedGrade
-            }])
-        } else {
-            setGrade(grade.map((item) => {
-                if(item.id === id) {
-                    item.grade = addedGrade
-                }
-                return item
-            }))
-        }
+        data[id].grade = addedGrade
     }
 
     const addUnits = (id, addedUnits) => {
-        if(typeof unit[id] === 'undefined') {
+        if (typeof unit[id] === 'undefined') {
             setUnit([...unit, {
                 id: id,
                 units: addedUnits
             }])
         } else {
             setUnit(unit.map((item) => {
-                if(item.id === id) {
+                if (item.id === id) {
                     item.units = addedUnits
                 }
                 return item
@@ -84,10 +94,10 @@ const GradeList = () => {
                         <div className="grid grid-cols-4 justify-self-center justify-center w-full h-16 palette5 rounded-lg shadow-slate-100 self-center shadow-2xl
                         border-solid border-2 border-white">
                             <div className="flex place-content-center">
-                                <input className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-3/4 text-center"/>
+                                <input className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-3/4 text-center" />
                             </div>
                             <div className="flex place-content-center">
-                                <input type="number" min="0" step="1" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-1/2 text-center" onChange={(e) => addUnits(id, e.target.value)}/>
+                                <input type="number" min="0" step="1" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-1/2 text-center" onChange={(e) => addUnits(id, e.target.value)} />
                             </div>
                             <div className="flex place-content-center">
                                 <select id="grades" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 w-1/2 text-center" onChange={(e) => addGrade(id, e.target.value)}>
