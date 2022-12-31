@@ -1,16 +1,15 @@
-import { cleanup } from "@testing-library/react"
 import { useEffect, useState } from "react"
+import { v4 as uuidv4 } from 'uuid'
 
 const GradeList = () => {
-    const [unit, setUnit] = useState([])
-    const [grade, setGrade] = useState([])
     const [data, setData] = useState([])
-    const [ids, setId] = useState([0, 1, 2, 3])
+    const [ids, setId] = useState([uuidv4(), uuidv4(), uuidv4(), uuidv4()])
 
     const addBox = () => {
-        setId([...ids, ids.length])
+        const tempID = uuidv4()
+        setId([...ids, tempID])
         setData([...data, {
-            id: ids.length,
+            id: tempID,
             unit: "",
             grade: ""
         }])
@@ -23,7 +22,7 @@ const GradeList = () => {
             }
             return idParam !== id
         }))
-        setId(ids.map((element) => element - 1)) //bug fix: the appending and removing of boxes logic is bad
+        //bug fix: the appending and removing of boxes logic is bad
     }
 
     useEffect(() => {
@@ -42,9 +41,12 @@ const GradeList = () => {
         })
         setData(tempArray)
     }
+
+
     const cleanUpData = (id) => {
         setData(data.filter((item) => item.id !== id))
     }
+
 
     const printData = () => {
         // console.log(grade)
@@ -52,31 +54,30 @@ const GradeList = () => {
         console.log(data)
     }
 
+
     const addGrade = (id, addedGrade) => {
-        data[id].grade = addedGrade
+        data.find((element, index) => {
+            if (element.id === id) {
+                data[index].grade = addedGrade
+            }
+        })
     }
 
+
     const addUnits = (id, addedUnits) => {
-        if (typeof unit[id] === 'undefined') {
-            setUnit([...unit, {
-                id: id,
-                units: addedUnits
-            }])
-        } else {
-            setUnit(unit.map((item) => {
-                if (item.id === id) {
-                    item.units = addedUnits
-                }
-                return item
-            }))
-        }
+        data.find((element, index) => {
+            if (element.id === id) {
+                data[index].unit = addedUnits
+            }
+        })
     }
+
 
     return (
         <div>
             <div className="grid grid-cols-4 justify-center w-full h-12 rounded-lg greenBG my-1 border-2 border-solid border-green-200 palette6">
                 <div className="label-tag">
-                    Course Code
+                    Course
                 </div>
                 <div className="label-tag">
                     Units
@@ -85,7 +86,7 @@ const GradeList = () => {
                     Grades
                 </div>
                 <div className="label-tag">
-                    Add/Remove
+                    Remove
                 </div>
             </div>
             {
@@ -100,7 +101,7 @@ const GradeList = () => {
                                 <input type="number" min="0" step="1" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-1/2 text-center" onChange={(e) => addUnits(id, e.target.value)} />
                             </div>
                             <div className="flex place-content-center">
-                                <select id="grades" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 w-1/2 text-center" onChange={(e) => addGrade(id, e.target.value)}>
+                                <select id="grades" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 w-3/4 text-center md:w-1/2" onChange={(e) => addGrade(id, e.target.value)}>
                                     <option disabled selected value className="hide"></option>
                                     <option value="4.0">4.0</option>
                                     <option value="3.5">3.5</option>
@@ -112,9 +113,9 @@ const GradeList = () => {
                                     <option value="0.0">0.0</option>
                                 </select>
                             </div>
-                            <div>
-                                <button onClick={() => removeBox(id)} className="bg-emerald-500 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-full w-3/4 place-self-center mt-2.5">
-                                    Remove
+                            <div className="flex place-content-center m-1">
+                                <button onClick={() => removeBox(id)} className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full w-3/4 md:w-1/4 h-3/4 mt-1.5">
+                                    <p className="text-white font-bold">X</p>
                                 </button>
                             </div>
                         </div>
