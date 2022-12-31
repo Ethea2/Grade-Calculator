@@ -75,7 +75,7 @@ const GradeList = () => {
 
     return (
         <div>
-            <div className="grid grid-cols-4 justify-center w-full h-12 rounded-lg greenBG my-1 border-2 border-solid border-green-200 palette6">
+            <div className="grid grid-cols-3 justify-center w-full h-12 rounded-lg greenBG my-1 border-2 border-solid border-green-200 palette6">
                 <div className="label-tag">
                     Course
                 </div>
@@ -85,14 +85,11 @@ const GradeList = () => {
                 <div className="label-tag">
                     Grades
                 </div>
-                <div className="label-tag">
-                    Remove
-                </div>
             </div>
             {
                 ids.map(id => (
                     <div className="flex justify-center w-full h-24 rounded-lg greenBG padding" key={id}>
-                        <div className="grid grid-cols-4 justify-self-center justify-center w-full h-16 palette5 rounded-lg shadow-slate-100 self-center shadow-2xl
+                        <div className="grid grid-cols-3 justify-self-center justify-center w-full h-16 palette5 rounded-lg shadow-slate-100 self-center shadow-2xl
                         border-solid border-2 border-white">
                             <div className="flex place-content-center">
                                 <input className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-3/4 text-center" />
@@ -112,9 +109,7 @@ const GradeList = () => {
                                     <option value="1.0">1.0</option>
                                     <option value="0.0">0.0</option>
                                 </select>
-                            </div>
-                            <div className="flex place-content-center m-1">
-                                <button onClick={() => removeBox(id)} className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full w-3/4 md:w-1/4 h-3/4 mt-1.5">
+                                <button onClick={() => removeBox(id)} className="transition delay-100 bg-transparent hover:shadow-inherit-500/50 hover:ease-in hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full w-1/4 h-3/4 m-1.5">
                                     <p className="text-white font-bold">X</p>
                                 </button>
                             </div>
