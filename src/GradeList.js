@@ -16,13 +16,16 @@ const GradeList = () => {
     }
 
     const removeBox = (idParam) => {
+        if(ids.length === 1) {
+            setId([])
+            setData([])
+        }
         setId(ids.filter((id) => {
             if (idParam !== id) {
                 cleanUpData(idParam)
             }
             return idParam !== id
         }))
-        //bug fix: the appending and removing of boxes logic is bad
     }
 
     useEffect(() => {
@@ -97,7 +100,7 @@ const GradeList = () => {
                             <div className="flex place-content-center">
                                 <input type="number" min="0" step="1" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 text-black w-1/2 text-center" onChange={(e) => addUnits(id, e.target.value)} />
                             </div>
-                            <div className="flex place-content-center">
+                            <div className="flex justify-end">
                                 <select id="grades" className="border-2 border-solid border-black h-12 my-1.5 rounded-lg palette6 w-3/4 text-center md:w-1/2" onChange={(e) => addGrade(id, e.target.value)}>
                                     <option disabled selected value className="hide"></option>
                                     <option value="4.0">4.0</option>
@@ -109,7 +112,7 @@ const GradeList = () => {
                                     <option value="1.0">1.0</option>
                                     <option value="0.0">0.0</option>
                                 </select>
-                                <button onClick={() => removeBox(id)} className="transition delay-100 bg-transparent hover:shadow-inherit-500/50 hover:ease-in hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full w-1/4 h-3/4 m-1.5">
+                                <button onClick={() => removeBox(id)} className="transition delay-100 bg-transparent hover:shadow-inherit-500/50 hover:ease-in hover:bg-red-500 text-white font-bold py-2 rounded-full w-1/4 h-3/4 m-1.5">
                                     <p className="text-white font-bold">X</p>
                                 </button>
                             </div>
