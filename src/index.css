@@ -1,18 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #E5D9B6;
-  /* cedbb8 */
+html {
+    font-family: 'Nunito Sans', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #E5D9B6;
+    /* cedbb8 */
 }
+
 
 .palette1 {
     background: #E5D9B6;
@@ -46,4 +48,22 @@ code {
 
 .hide {
     display: none;
+}
+
+.list-transition-enter {
+    opacity: 0.01;
+}
+
+.list-transition-enter-active {
+    opacity: 1;
+    transition: opacity 400ms ease-in;
+}
+
+.list-transition-exit {
+    opacity: 1;
+}
+
+.list-transition-exit-active {
+    opacity: 0.01;
+    transition: opacity 400ms ease-in;
 }

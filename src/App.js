@@ -1,16 +1,15 @@
-import GradeContainer from './GradeContainter.js'
 import './App.css';
 import Navbar from './Navbar.js';
 import React from 'react'
+import GradePage from './GradePage.js';
+import Footer from './Footer.js'
 
 function App() {
     return (
-        <div className="w-full font-mono">
+        <div className="w-full">
             <Navbar />
-            <div className="grid grid-cols-1 md:grid md:grid-cols-2 md:w-full">
-                <GradeContainer />
-                Hello
-            </div>
+            <GradePage />
+            <Footer  />
         </div>
     );
 }
