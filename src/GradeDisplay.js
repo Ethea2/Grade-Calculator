@@ -83,7 +83,7 @@ export const GradeDisplay = ({ compute, setCompute }) => {
                 </div>
             </div>
             {isDL && <Confetti />}
-            {isDL && <Modal closeError={closeModal} title="Congratulations!" message={awards} />}
+            {isDL && <Modal closeError={closeModal} title="Congratulations!" message={awards} gpa={gpa}/>}
         </div>
     )
 }

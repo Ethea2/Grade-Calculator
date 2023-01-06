@@ -1,0 +1,52 @@
+
+.palette1 {
+    background: #E5D9B6;
+}
+
+.palette2 {
+    background: #A4BE7B;
+}
+
+.palette3 {
+    background: #5F8D4E;
+    /* text-emerald-100 */
+}
+
+.palette4 {
+    background: #285430;
+    /* text-emerald-900 */
+}
+
+.palette5 {
+    background: #7bbb87
+}
+
+.palette6 {
+    background: #dcd8d8
+}
+
+.label-tag {
+    @apply flex place-content-center w-full text-xl text-green-900 mt-2 font-semibold
+}
+
+.hide {
+    display: none;
+}
+
+.list-transition-enter {
+    opacity: 0.01;
+}
+
+.list-transition-enter-active {
+    opacity: 1;
+    transition: opacity 400ms ease-in;
+}
+
+.list-transition-exit {
+    opacity: 1;
+}
+
+.list-transition-exit-active {
+    opacity: 0.01;
+    transition: opacity 400ms ease-in;
+}
